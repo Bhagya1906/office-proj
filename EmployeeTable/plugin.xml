@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="employeetable.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="employeetable.Perspective"
+            name="Perspective"
+            id="EmployeeTable.perspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="employeetable.View"
+            name="View"
+            id="EmployeeTable.view"
+            inject="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="employeetable.remove"
+            name="Remove">
+      </command>
+      <command
+            defaultHandler="employeetable.Exit_handler"
+            id="employeetable.exit"
+            name="Exit">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <menu
+               label="File">
+            <command
+                  commandId="employeetable.exit"
+                  label="Exit"
+                  style="push">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:EmployeeTable.view">
+         <command
+               commandId="employeetable.remove"
+               label="Remove"
+               style="push">
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="employeetable.RemoveHandler"
+            commandId="employeetable.remove">
+      </handler>
+   </extension>
+   
+  <extension point="org.eclipse.ui.menus">
+   <menuContribution
+         allPopups="false"
+         locationURI="menu:org.eclipse.ui.main.menu">
+      <menu
+            id="org.eclipse.ui.window.menu"
+            label="Window"
+            mnemonic="W">
+         <visibleWhen>
+            <and>
+               <!-- Add conditions that always evaluate to false -->
+               <not>
+                  <instanceof
+                        value="org.eclipse.core.runtime.IAdaptable">
+                  </instanceof>
+               </not>
+               <not>
+                  <instanceof
+                        value="org.eclipse.core.resources.mapping.ResourceMapping">
+                  </instanceof>
+               </not>
+               <!-- Add more conditions if required -->
+            </and>
+         </visibleWhen>
+      </menu>
+   </menuContribution>
+</extension>
+  
+   
+   
+   
+   
+
+</plugin>
